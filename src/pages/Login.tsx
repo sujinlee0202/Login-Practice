@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, UserInfo } from "../types/User";
+import { User } from "../types/User";
 import { useNavigate } from "react-router-dom";
 
 type LoginSuccessMessage = "SUCCESS";
@@ -35,7 +35,6 @@ const Login = () => {
 
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [userInfo, setUserInfo] = useState<UserInfo>();
 
   const handleInputId = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -84,7 +83,6 @@ const Login = () => {
 
     const userInfo = await getUserInfo(loginInfo.token);
     if (!userInfo) return;
-    setUserInfo(userInfo);
 
     if (loginInfo) {
       alert(`${userInfo?.nick}님이 로그인 하셨습니다. 환영합니다!`);
