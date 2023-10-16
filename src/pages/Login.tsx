@@ -3,8 +3,20 @@ import { User } from "../types/User";
 import { useNavigate } from "react-router-dom";
 
 const users: User[] = [
-  { id: "titch1", pw: "1234", nick: "titch1" },
-  { id: "titch2", pw: "1234", nick: "titch2" },
+  {
+    id: "titch1",
+    pw: "1234",
+    userInfo: {
+      nick: "titch1",
+    },
+  },
+  {
+    id: "titch2",
+    pw: "1234",
+    userInfo: {
+      nick: "titch1",
+    },
+  },
 ];
 
 const Login = () => {
@@ -21,14 +33,25 @@ const Login = () => {
     setPw(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const login = async (id: string, pw: string) => {
+    const user = users.find((user: User) => {
+      return user.id === id && user.pw === pw;
+    });
+
+    return user
+      ? {
+          message: "SUCCESS",
+          user: user.id,
+        }
+      : null;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      users.find((user: User) => {
-        return user.id === id && user.pw === pw;
-      })
-    ) {
+    const loginInfo = await login(id, pw);
+
+    if (loginInfo) {
       navigate("/PageA");
     }
   };

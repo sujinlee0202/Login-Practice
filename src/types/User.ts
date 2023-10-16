@@ -1,5 +1,9 @@
+export interface UserInfo {
+  nick: string;
+}
+
 export interface User {
   id: string;
   pw: string;
-  nick: string;
+  userInfo: UserInfo;
 }
